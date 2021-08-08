@@ -1,0 +1,48 @@
+server:
+  port: 8082
+
+spring:
+  profiles:
+    active: prod
+---
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: mysql
+    url: jdbc:mysql://localhost:3308/test
+    username: wp_admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+---
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: mysql
+    url: jdbc:mysql://localhost:3308/test-qa
+    username: wp_admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  config:
+    activate:
+      on-profile: qa
+
+---
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: mysql
+    url: jdbc:mysql://localhost:3308/test-prod
+    username: wp_admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  profiles:
+    active: prod

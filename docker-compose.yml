@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  db:
+    image: mysql:8.0.18
+    container_name: db
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=test-prod
+      - MYSQL_HOST=db
+      - MYSQL_ROOT_PASSWORD=mysql_root
+      - MYSQL_USER=wp_admin
+      - MYSQL_PASSWORD=mysql
+      - MYSQL_PORT=3306
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./start_up.sql:/docker-entrypoint-initdb.d/0-start_up.sql
+      - ./seed.sql:/docker-entrypoint-initdb.d/1-seed.sql
+    ports:
+      - "3308:3306"
+    command: '--default-authentication-plugin=mysql_native_password'
+    
+
+volumes:
+  dbdata:
+  
